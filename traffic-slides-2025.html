@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交通看·民生 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* === VIEWPORT BASE === */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        /* === DARK BOTANICAL THEME === */
+        :root {
+            --bg-primary: #0f0f0f;
+            --bg-gradient: linear-gradient(145deg, #0f0f0f 0%, #1a1816 50%, #0f0f0f 100%);
+            --text-primary: #e8e4df;
+            --text-secondary: #9a9590;
+            --accent-warm: #d4a574;
+            --accent-pink: #e8b4b8;
+            --accent-gold: #c9b896;
+            --card-bg: rgba(212, 165, 116, 0.08);
+            --border-subtle: rgba(212, 165, 116, 0.15);
+            
+            --title-size: clamp(1.8rem, 5vw, 4rem);
+            --h2-size: clamp(1.3rem, 3vw, 2.2rem);
+            --h3-size: clamp(1rem, 2vw, 1.5rem);
+            --body-size: clamp(0.8rem, 1.3vw, 1.1rem);
+            --small-size: clamp(0.65rem, 0.9vw, 0.85rem);
+            --slide-padding: clamp(1.5rem, 4vw, 4rem);
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* === TYPOGRAPHY === */
+        h1, h2, h3 {
+            font-family: 'Cormorant', serif;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.2;
+        }
+        h1 { font-size: var(--title-size); }
+        h2 { font-size: var(--h2-size); }
+        h3 { font-size: var(--h3-size); }
+        p, li { 
+            font-size: var(--body-size); 
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* === DECORATIVE ELEMENTS === */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .shape-1 {
+            width: min(50vw, 500px);
+            height: min(50vw, 500px);
+            background: var(--accent-pink);
+            top: -10%;
+            right: -10%;
+        }
+        .shape-2 {
+            width: min(40vw, 400px);
+            height: min(40vw, 400px);
+            background: var(--accent-warm);
+            bottom: -15%;
+            left: -10%;
+            opacity: 0.25;
+        }
+        .shape-3 {
+            width: min(30vw, 300px);
+            height: min(30vw, 300px);
+            background: var(--accent-gold);
+            top: 40%;
+            left: 60%;
+            opacity: 0.2;
+        }
+
+        /* === ACCENT LINE === */
+        .accent-line {
+            width: 60px;
+            height: 2px;
+            background: var(--accent-warm);
+            margin: var(--slide-padding) 0;
+        }
+
+        /* === CARDS === */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: clamp(1rem, 2vw, 2rem);
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: clamp(1.2rem, 2.5vw, 2.5rem);
+        }
+        .stat-number {
+            font-family: 'Cormorant', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 600;
+            color: var(--accent-warm);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* === GRID === */
+        .grid {
+            display: grid;
+            gap: clamp(0.8rem, 1.5vw, 1.5rem);
+        }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+        /* === LISTS === */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+        li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--accent-warm);
+        }
+
+        /* === HIGHLIGHT === */
+        .highlight {
+            color: var(--accent-warm);
+            font-weight: 500;
+        }
+        .highlight-pink { color: var(--accent-pink); }
+        
+        /* === NUMBERED === */
+        .section-number {
+            font-family: 'Cormorant', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 400;
+            color: var(--accent-warm);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .slide-content > * {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        .slide-content > *:nth-child(1) { animation-delay: 0.1s; }
+        .slide-content > *:nth-child(2) { animation-delay: 0.2s; }
+        .slide-content > *:nth-child(3) { animation-delay: 0.3s; }
+        .slide-content > *:nth-child(4) { animation-delay: 0.4s; }
+
+        /* === NAV === */
+        .nav-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-subtle);
+            transition: all 0.3s;
+        }
+        .nav-dot.active {
+            background: var(--accent-warm);
+            transform: scale(1.3);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+        }
+
+        /* === SPECIFIC SLIDES === */
+        .title-slide {
+            text-align: center;
+        }
+        .title-slide h1 {
+            margin-bottom: 1rem;
+        }
+        .title-slide .subtitle {
+            font-size: var(--h3-size);
+            color: var(--text-secondary);
+            font-family: 'Cormorant', serif;
+            font-style: italic;
+        }
+        .title-slide .tagline {
+            margin-top: 2rem;
+            font-size: var(--body-size);
+            color: var(--accent-warm);
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            height: 150px;
+            padding: 1rem 0;
+        }
+        .bar {
+            flex: 1;
+            background: var(--accent-warm);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            min-width: 30px;
+            transition: all 0.3s;
+        }
+        .bar:hover {
+            background: var(--accent-pink);
+        }
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: var(--small-size);
+            white-space: nowrap;
+        }
+        
+        .insight-box {
+            background: linear-gradient(135deg, rgba(212,165,116,0.1) 0%, rgba(232,180,184,0.05) 100%);
+            border-left: 3px solid var(--accent-warm);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+        }
+        .insight-box p {
+            color: var(--text-primary);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-dots">
+        <div class="nav-dot active"></div>
+        <div class="nav-dot"></div>
+        <div class="nav-dot"></div>
+        <div class="nav-dot"></div>
+        <div class="nav-dot"></div>
+        <div class="nav-dot"></div>
+        <div class="nav-dot"></div>
+        <div class="nav-dot"></div>
+    </div>
+
+    <!-- SLIDE 1: 封面 -->
+    <section class="slide" id="slide-1">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="slide-content title-slide">
+            <div class="section-number">2025</div>
+            <h1>交通看·民生</h1>
+            <p class="subtitle">浙江省高速公路民生监测研究报告</p>
+            <p class="tagline">以数据洞见民生，让出行更有温度</p>
+            <div class="accent-line" style="margin: 2rem auto;"></div>
+            <p style="font-size: var(--small-size);">基于高速公路车流数据 + 公共数据融合分析</p>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: 核心发现概览 -->
+    <section class="slide" id="slide-2">
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="slide-content">
+            <div class="section-number">01</div>
+            <h2>四大核心发现</h2>
+            <div class="accent-line"></div>
+            
+            <div class="grid grid-2" style="margin-top: 2rem;">
+                <div class="card">
+                    <h3 style="color: var(--accent-warm);">🚗 跨区域通勤</h3>
+                    <p style="margin-top: 0.5rem;">杭绍通勤流量 <span class="highlight">97.5万</span> 辆次/年<br>"杭绍一体化"进入深度协同阶段</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-pink);">📦 生活物资物流</h3>
+                    <p style="margin-top: 0.5rem;">杭州绿色通道车辆规模 <span class="highlight-pink">全省第一</span><br>果蔬运输占比达<span class="highlight-pink">60%</span></p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--accent-gold);">⚡ 绿色出行</h3>
+                    <p style="margin-top: 0.5rem;">新能源车渗透率 <span class="highlight">34.83%</span><br>杭州领跑全省，山区沿海偏低</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--text-primary);">🛣️ 路网韧性</h3>
+                    <p style="margin-top: 0.5rem;">国庆承压指数 <span class="highlight">478.8万</span><br>沪昆高速成全国最拥堵路段</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: 跨区域通勤 -->
+    <section class="slide" id="slide-3">
+        <div class="shape shape-1"></div>
+        <div class="slide-content">
+            <div class="section-number">02</div>
+            <h2>跨区域通勤 · 杭绍一体化</h2>
+            <div class="accent-line"></div>
+            
+            <div class="grid grid-2" style="margin-top: 1.5rem; gap: 2rem;">
+                <div>
+                    <div class="card stat-card">
+                        <div class="stat-number">97.5万</div>
+                        <div class="stat-label">杭绍通勤流量（辆次/年）</div>
+                    </div>
+                    <p style="margin-top: 1rem; text-align: center;">浙江省最高，占全省<span class="highlight">50%+</span></p>
+                    
+                    <div class="insight-box" style="margin-top: 1.5rem;">
+                        <p>"大量居民在杭州就业、绍兴居住，形成高频次、高密度的'钟摆式'通勤。"</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="margin-bottom: 1rem;">通勤车辆规模 TOP5</h3>
+                    <div class="bar-chart">
+                        <div class="bar" style="height: 100%;">
+                            <span class="bar-label">杭绍</span>
+                        </div>
+                        <div class="bar" style="height: 70%;">
+                            <span class="bar-label">杭嘉</span>
+                        </div>
+                        <div class="bar" style="height: 55%;">
+                            <span class="bar-label">杭湖</span>
+                        </div>
+                        <div class="bar" style="height: 35%;">
+                            <span class="bar-label">杭甬</span>
+                        </div>
+                        <div class="bar" style="height: 25%;">
+                            <span class="bar-label">甬舟</span>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 1rem; font-size: var(--small-size);">燃油车占比<span class="highlight">75%+</span>，新能源车仅24%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: 极端通勤 -->
+    <section class="slide" id="slide-4">
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="slide-content">
+            <div class="section-number">03</div>
+            <h2>极端通勤分析</h2>
+            <div class="accent-line"></div>
+            
+            <div class="grid grid-2" style="margin-top: 1.5rem;">
+                <div>
+                    <div class="card stat-card">
+                        <div class="stat-number">0.04%</div>
+                        <div class="stat-label">浙江省极端通勤占比</div>
+                    </div>
+                    <p style="margin-top: 1rem; text-align: center;">整体通勤压力<span class="highlight">较小</span></p>
+                    
+                    <div class="insight-box" style="margin-top: 1.5rem;">
+                        <p>"极端通勤以零星发生的事件驱动为主，与产业分布、路网密度等<span class="highlight">结构性因素无关</span>"</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>极端通勤高发路段</h3>
+                    <ul style="margin-top: 1rem;">
+                        <li><span class="highlight">绍兴 ↔ 温州</span> — 2.22%（全省最高）</li>
+                        <li>嘉兴 ↔ 衢州 — 1.45%（需绕行杭州）</li>
+                        <li>丽水 ↔ 宁波 — 0.36%</li>
+                        <li>湖州 ↔ 衢州 — 0.30%</li>
+                    </ul>
+                    <div class="insight-box" style="margin-top: 1rem; border-color: var(--accent-pink);">
+                        <p style="color: var(--accent-pink);">"浙南—浙北、浙西—浙东跨区域走廊为极端通勤高发区"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: 生活物资物流 -->
+    <section class="slide" id="slide-5">
+        <div class="shape shape-1"></div>
+        <div class="slide-content">
+            <div class="section-number">04</div>
+            <h2>生活物资物流保障</h2>
+            <div class="accent-line"></div>
+            
+            <div class="grid grid-2" style="margin-top: 1.5rem;">
+                <div>
+                    <h3>"绿色通道"车辆分布</h3>
+                    <div class="bar-chart" style="height: 120px; margin-top: 1rem;">
+                        <div class="bar" style="height: 100%; background: var(--accent-warm);">
+                            <span class="bar-label">水果</span>
+                        </div>
+                        <div class="bar" style="height: 90%;">
+                            <span class="bar-label">蔬菜</span>
+                        </div>
+                        <div class="bar" style="height: 55%;">
+                            <span class="bar-label">水产</span>
+                        </div>
+                        <div class="bar" style="height: 25%;">
+                            <span class="bar-label">肉蛋奶</span>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 1.5rem;">果蔬合计占比 <span class="highlight">60%</span></p>
+                </div>
+                
+                <div>
+                    <h3>来杭运输结构</h3>
+                    <ul style="margin-top: 1rem;">
+                        <li><span class="highlight">蔬菜</span> — 41.79%</li>
+                        <li><span class="highlight-pink">水产</span> — 25.43%（宁波/舟山供给）</li>
+                        <li>水果 — 21.64%（西瓜为主）</li>
+                        <li>肉蛋奶 — 10.47%</li>
+                    </ul>
+                    
+                    <div class="insight-box" style="margin-top: 1rem;">
+                        <p>"杭州作为长三角消费中心，对海产品需求旺盛"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 6: 新能源车渗透率 -->
+    <section class="slide" id="slide-6">
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="slide-content">
+            <div class="section-number">05</div>
+            <h2>绿色低碳出行</h2>
+            <div class="accent-line"></div>
+            
+            <div class="grid grid-2" style="margin-top: 1.5rem;">
+                <div>
+                    <h3>新能源车渗透率分布</h3>
+                    <div class="bar-chart" style="height: 130px; margin-top: 1rem;">
+                        <div class="bar" style="height: 100%; background: var(--accent-warm);">
+                            <span class="bar-label">杭州</span>
+                        </div>
+                        <div class="bar" style="height: 83%;">
+                            <span class="bar-label">嘉兴</span>
+                        </div>
+                        <div class="bar" style="height: 83%;">
+                            <span class="bar-label">金华</span>
+                        </div>
+                        <div class="bar" style="height: 83%;">
+                            <span class="bar-label">湖州</span>
+                        </div>
+                        <div class="bar" style="height: 82%;">
+                            <span class="bar-label">宁波</span>
+                        </div>
+                        <div class="bar" style="height: 66%;">
+                            <span class="bar-label">衢州</span>
+                        </div>
+                        <div class="bar" style="height: 61%;">
+                            <span class="bar-label">丽水</span>
+                        </div>
+                        <div class="bar" style="height: 60%;">
+                            <span class="bar-label">舟山</span>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 1rem;">全省均值 <span class="highlight">27%</span></p>
+                </div>
+                
+                <div>
+                    <div class="card stat-card">
+                        <div class="stat-number">34.83%</div>
+                        <div class="stat-label">杭州市渗透率 · 全省第一</div>
+                    </div>
+                    
+                    <div class="insight-box" style="margin-top: 1.5rem;">
+                        <p>"杭州领跑全省，得益于<span class="highlight">充电基础设施完善</span>、<span class="highlight">政策激励</span>和<span class="highlight">产业聚集</span>综合优势"</p>
+                    </div>
+                    
+                    <p style="margin-top: 1rem; font-size: var(--small-size);">
+                        山区/海岛偏低：衢州23%、丽水21%、舟山21%
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 7: 节假日承压 -->
+    <section class="slide" id="slide-7">
+        <div class="shape shape-1"></div>
+        <div class="slide-content">
+            <div class="section-number">06</div>
+            <h2>高速路网服务与韧性</h2>
+            <div class="accent-line"></div>
+            
+            <div class="grid grid-2" style="margin-top: 1.5rem;">
+                <div>
+                    <h3>2025年节假日承压指数</h3>
+                    <div class="metric-row" style="margin: 1.5rem 0;">
+                        <div class="card stat-card" style="padding: 1rem;">
+                            <div class="stat-number" style="font-size: 2rem;">48.7万</div>
+                            <div class="stat-label">春节</div>
+                        </div>
+                        <div class="card stat-card" style="padding: 1rem;">
+                            <div class="stat-number" style="font-size: 2rem;">71.9万</div>
+                            <div class="stat-label">五一</div>
+                        </div>
+                        <div class="card stat-card" style="padding: 1rem; border-color: var(--accent-pink);">
+                            <div class="stat-number" style="font-size: 2rem; color: var(--accent-pink);">1414.2万</div>
+                            <div class="stat-label">国庆</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center;">国庆较五一上涨 <span class="highlight-pink">1800%</span></p>
+                </div>
+                
+                <div>
+                    <h3>国庆TOP5拥堵路段</h3>
+                    <ul style="margin-top: 1rem;">
+                        <li><span class="highlight">沪昆高速</span> — 5924.5万（全国最堵）</li>
+                        <li>申嘉湖高速 — 2688.0万</li>
+                        <li>沪渝高速 — 2674.3万</li>
+                        <li>常台高速 — 2324.6万</li>
+                        <li>甬金高速 — 2050.1万</li>
+                    </ul>
+                    
+                    <div class="insight-box" style="margin-top: 1rem; border-color: var(--accent-pink);">
+                        <p style="color: var(--accent-pink);">"沪昆高速作为华东—华南—西南'经济动脉'，在长假期间承担<span class="highlight-pink">全国性货运+客运</span>双重负荷"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: 总结 -->
+    <section class="slide" id="slide-8">
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="slide-content title-slide">
+            <div class="section-number">07</div>
+            <h2>总结与展望</h2>
+            <div class="accent-line" style="margin: 1.5rem auto;"></div>
+            
+            <div class="grid grid-2" style="max-width: 900px; margin: 0 auto; gap: 2rem;">
+                <div class="card" style="text-align: left;">
+                    <h3 style="color: var(--accent-warm);">核心理念</h3>
+                    <p style="margin-top: 0.5rem;">"人享其行 · 物畅其流"</p>
+                    <p>让交通数据从"车辆"延伸至"人、企、货"</p>
+                </div>
+                <div class="card" style="text-align: left;">
+                    <h3 style="color: var(--accent-pink);">未来方向</h3>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>通勤效率优化</li>
+                        <li>绿通物流提速</li>
+                        <li>新能源基建下沉</li>
+                        <li>路网韧性提升</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p style="margin-top: 2rem; font-size: var(--small-size); color: var(--text-secondary);">
+                数据来源：浙江省高速公路通行数据 + 公共数据授权运营
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Navigation dots
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.nav-dot');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(slides).indexOf(entry.target);
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        slides.forEach(slide => observer.observe(slide));
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const currentIndex = Array.from(dots).findIndex(d => d.classList.contains('active'));
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                if (currentIndex < slides.length - 1) {
+                    slides[currentIndex + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    slides[currentIndex - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
