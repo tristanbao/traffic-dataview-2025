@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交通看·区域经济 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <div class="progress-bar"></div>
+    
+    <div class="container">
+        <!-- 封面页 -->
+        <section class="slide active" data-index="0">
+            <div class="content">
+                <div class="cover-content">
+                    <h1 class="title-main">交通看·区域经济</h1>
+                    <div class="title-line"></div>
+                    <p class="subtitle">基于高速公路通行数据的浙江省区域经济分析报告</p>
+                    <p class="year">2025</p>
+                    <div class="scroll-hint">向下滚动探索</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 摘要页 -->
+        <section class="slide" data-index="1">
+            <div class="content">
+                <h2 class="section-title">研究摘要</h2>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="card-icon">📊</div>
+                        <h3>数据驱动</h3>
+                        <p>以高速公路通行数据为核心，构建高价值数据研究体系</p>
+                    </div>
+                    <div class="summary-card">
+                        <div class="card-icon">🎯</div>
+                        <h3>多维分析</h3>
+                        <p>围绕经济活跃度、城际连接度、产业集聚度等核心维度</p>
+                    </div>
+                    <div class="summary-card">
+                        <div class="card-icon">🚀</div>
+                        <h3>智能应用</h3>
+                        <p>支撑政府决策、产业园区规划、企业物流优化</p>
+                    </div>
+                    <div class="summary-card">
+                        <div class="card-icon">🌱</div>
+                        <h3>绿色发展</h3>
+                        <p>助力碳达峰碳中和目标，推动区域协调发展</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区域经济活跃度指数 -->
+        <section class="slide" data-index="2">
+            <div class="content">
+                <h2 class="section-title">区域经济活跃度指数</h2>
+                <div id="vitality-chart" class="chart-container"></div>
+                <div class="insight-box">
+                    <div class="insight-icon">💡</div>
+                    <div class="insight-content">
+                        <h4>核心观点</h4>
+                        <p><span class="highlight">杭州、宁波、温州</span>位列前三，经济活跃度指数显著领先。<span class="highlight">舟山、衢州、丽水</span>等地市虽GDP排名靠后，但凭借<span class="highlight">港口经济、旅游业</span>等特色产业，展现出独特的经济活力。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 浙江省城市连接网络 -->
+        <section class="slide" data-index="3">
+            <div class="content">
+                <h2 class="section-title">城际连接强度网络</h2>
+                <div id="network-chart" class="chart-container"></div>
+                <div class="insight-box">
+                    <div class="insight-icon">🌐</div>
+                    <div class="insight-content">
+                        <h4>核心观点</h4>
+                        <p>呈现<span class="highlight">"中心-梯度衰减"</span>空间格局。<span class="highlight">杭州都市圈、宁波都市圈</span>形成高密度连接圈，<span class="highlight">G60科创走廊</span>高速公路串联起城市群，形成紧密联系。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 产业流动性指数 -->
+        <section class="slide" data-index="4">
+            <div class="content">
+                <h2 class="section-title">产业流动性指数月度变化</h2>
+                <div id="flow-chart" class="chart-container"></div>
+                <div class="insight-box">
+                    <div class="insight-icon">📈</div>
+                    <div class="insight-content">
+                        <h4>核心观点</h4>
+                        <p><span class="highlight">温州</span>指数全年波动较小，保持稳定。<span class="highlight">杭州、宁波、金华</span>等地受产业结构、季节性因素影响，波动较大。<span class="highlight">3月</span>指数接近全年低点，<span class="highlight">12月</span>逐步回升。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区域对比雷达图 -->
+        <section class="slide" data-index="5">
+            <div class="content">
+                <h2 class="section-title">重点城市多维度对比</h2>
+                <div id="radar-chart" class="chart-container"></div>
+                <div class="insight-box">
+                    <div class="insight-icon">⭐</div>
+                    <div class="insight-content">
+                        <h4>核心观点</h4>
+                        <p><span class="highlight">杭州、宁波、温州</span>三大城市在<span class="highlight">经济活跃度、城际连接、产业流动</span>等多维度指标上表现突出，是浙江省经济发展的<span class="highlight">三大引擎</span>。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 浙江省地图热力图 -->
+        <section class="slide" data-index="6">
+            <div class="content">
+                <h2 class="section-title">浙江省区域经济热力分布</h2>
+                <div id="map-chart" class="chart-container"></div>
+                <div class="insight-box">
+                    <div class="insight-icon">🗺️</div>
+                    <div class="insight-content">
+                        <h4>核心观点</h4>
+                        <p><span class="highlight">杭州湾区域</span>是最活跃的经济带，形成以<span class="highlight">杭州、宁波为双核</span>的发展格局。<span class="highlight">浙西南地区</span>经济活跃度相对较低，区域协调发展仍有提升空间。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 研究结论 -->
+        <section class="slide" data-index="7">
+            <div class="content">
+                <h2 class="section-title">研究结论与展望</h2>
+                <div class="conclusion-grid">
+                    <div class="conclusion-item">
+                        <div class="number">01</div>
+                        <h3>区域一体化提升</h3>
+                        <p>高速公路网络促进区域经济一体化程度不断提升，城市间联系日益紧密</p>
+                    </div>
+                    <div class="conclusion-item">
+                        <div class="number">02</div>
+                        <h3>中心城市辐射</h3>
+                        <p>杭州、宁波作为核心枢纽，辐射带动作用显著，引领全省经济发展</p>
+                    </div>
+                    <div class="conclusion-item">
+                        <div class="number">03</div>
+                        <h3>交通基础支撑</h3>
+                        <p>交通基础设施是经济发展的重要支撑，智慧高速建设助力数字化转型</p>
+                    </div>
+                    <div class="conclusion-item">
+                        <div class="number">04</div>
+                        <h3>协调发展空间</h3>
+                        <p>浙西南地区发展潜力巨大，需加强交通连接，推动区域协调发展</p>
+                    </div>
+                </div>
+                <div class="future-outlook">
+                    <h3>未来展望</h3>
+                    <p>整合多源数据，构建"人-车-路-企业"全链条数据体系，推动智慧交通与数字经济深度融合，为浙江省高质量发展和"双碳"目标提供数据支撑。</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="navigation">
+        <div class="nav-dots"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
